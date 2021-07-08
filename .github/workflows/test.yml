@@ -1,0 +1,22 @@
+name: Testing
+
+on: push
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Using Node.js v15.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: "15.x"
+
+            - name: Installation of the dependencies
+              run: npm i
+            - name: Testing the application with Jest
+              run: npm run test
+            - name: Type checking application
+              run: npm run type-check
