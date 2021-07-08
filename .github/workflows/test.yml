@@ -1,6 +1,6 @@
 name: Testing
 
-on: push
+on: [push, pull_request]
 
 jobs:
     build:
@@ -18,5 +18,3 @@ jobs:
               run: npm i
             - name: Testing the application with Jest
               run: npm run test
-            - name: Type checking application
-              run: npm run type-check
