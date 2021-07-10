@@ -2,5 +2,5 @@ node_modules
 yarn.lock
 .next
 
-.env.local
+.env*
 out/
