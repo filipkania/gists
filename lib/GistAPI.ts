@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 class GistAPI {
-	private token: string;
+	public readonly token: string;
 	public readonly client: AxiosInstance;
 
 	constructor(token: string) {
@@ -15,8 +15,8 @@ class GistAPI {
 		});
 	}
 
-	public validateToken = (token: string) => {
-		return !!token;
+	public validateToken = async () => {
+		return !!this.token;
 	};
 }
 
