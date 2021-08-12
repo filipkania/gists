@@ -14,6 +14,7 @@ export const useWrapperCtx = (): WrapperCtxType => {
 		const newWrapper = new GistAPI(token);
 		if (await newWrapper.validateToken()) {
 			setWrapper(newWrapper);
+			localStorage.setItem(LOCALSTORAGE_KEY, token);
 			return true;
 		}
 
@@ -34,8 +35,9 @@ export const useWrapperCtx = (): WrapperCtxType => {
 		}
 
 		window.addEventListener("storage", async (e) => {
-			if (e.key === LOCALSTORAGE_KEY) {
+			if (e.key === LOCALSTORAGE_KEY && e.newValue !== wrapper?.token) {
 				if (!e.newValue || !(await changeToken(e.newValue))) {
+					setWrapper(null);
 					router.push("/login");
 				}
 			}

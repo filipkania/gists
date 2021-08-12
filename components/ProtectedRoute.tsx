@@ -12,7 +12,7 @@ const ProtectedRoute = (Page: FunctionComponent) => {
 			if (!loading && !wrapper?.token) {
 				router.push("/login");
 			}
-		}, [loading]);
+		}, [loading, wrapper?.token]);
 
 		return <Page {...props} />;
 	};

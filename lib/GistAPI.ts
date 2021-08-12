@@ -6,10 +6,10 @@ class GistAPI {
 	constructor(token: string) {
 		this.token = token;
 		this.client = axios.create({
-			url: "https://api.github.com",
+			baseURL: "https://api.github.com",
 			responseType: "json",
 			headers: {
-				Accept: "application/json",
+				Accept: "application/vnd.github.v3+json",
 				Authorization: `token ${this.token}`,
 			},
 		});
@@ -17,6 +17,10 @@ class GistAPI {
 
 	public validateToken = async () => {
 		return !!this.token;
+	};
+
+	public getGists = () => {
+		return this.client.get("/gists");
 	};
 }
 
