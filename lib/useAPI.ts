@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import GistAPI from "./GistAPI";
 import { useWrapper } from "./WrapperContext";
 
-const useAPI = <T = any>(query: (wrapper: GistAPI) => Promise<AxiosResponse | { data: any }>) => {
+const useAPI = <T = any>(query: (wrapper: GistAPI) => Promise<AxiosResponse<T> | { data: T }>) => {
 	const [data, setData] = useState<T | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<AxiosError | null>(null);
