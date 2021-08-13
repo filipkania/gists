@@ -6,6 +6,7 @@ export const LOCALSTORAGE_KEY = "gists::token";
 export const WrapperContext = createContext<WrapperCtxType>({
 	wrapper: null,
 	changeToken: async () => false,
+	clearSession: () => null,
 	loading: true,
 });
 

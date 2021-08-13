@@ -21,6 +21,11 @@ export const useWrapperCtx = (): WrapperCtxType => {
 		return false;
 	};
 
+	const clearSession = () => {
+		setWrapper(null);
+		router.push("/login");
+	};
+
 	useEffect(() => {
 		const newToken = localStorage.getItem(LOCALSTORAGE_KEY);
 		if (newToken) {
@@ -37,8 +42,7 @@ export const useWrapperCtx = (): WrapperCtxType => {
 		window.addEventListener("storage", async (e) => {
 			if (e.key === LOCALSTORAGE_KEY && e.newValue !== wrapper?.token) {
 				if (!e.newValue || !(await changeToken(e.newValue))) {
-					setWrapper(null);
-					router.push("/login");
+					clearSession();
 				}
 			}
 		});
@@ -48,5 +52,6 @@ export const useWrapperCtx = (): WrapperCtxType => {
 		wrapper,
 		changeToken,
 		loading,
+		clearSession,
 	};
 };
