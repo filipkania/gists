@@ -23,6 +23,7 @@ export const useWrapperCtx = (): WrapperCtxType => {
 
 	const clearSession = () => {
 		setWrapper(null);
+		localStorage.removeItem(LOCALSTORAGE_KEY);
 		router.push("/login");
 	};
 
@@ -32,7 +33,7 @@ export const useWrapperCtx = (): WrapperCtxType => {
 			changeToken(newToken).then((r) => {
 				setLoading(false);
 				if (!r) {
-					router.push("/login");
+					clearSession();
 				}
 			});
 		} else {
