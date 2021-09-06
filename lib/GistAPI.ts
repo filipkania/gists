@@ -16,11 +16,20 @@ class GistAPI {
 	}
 
 	public validateToken = async () => {
-		return !!this.token;
+		if (!this.token.match(/ghp_[A-Za-z0-9_]{20,255}/g)) return false;
+
+		return this.client
+			.get("/user")
+			.then(() => true)
+			.catch(() => false);
 	};
 
 	public getGists = () => {
 		return this.client.get("/gists");
+	};
+
+	public getSpecificGist = (id: string) => {
+		return this.client.get(`/gists/${id}`);
 	};
 }
 
