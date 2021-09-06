@@ -3,6 +3,7 @@ import "@styles/globals.scss";
 import type { AppProps } from "next/app";
 import { Router } from "next/router";
 import { useEffect } from "react";
+import Head from "next/head";
 
 import Nprogress from "nprogress";
 import "nprogress/nprogress.css";
@@ -20,6 +21,10 @@ const Gists = ({ Component, pageProps }: AppProps) => {
 
 	return (
 		<WrapperProvider>
+			<Head>
+				<title>GistEditor</title>
+			</Head>
+
 			<Component {...pageProps} />
 		</WrapperProvider>
 	);
