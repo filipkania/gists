@@ -6,6 +6,8 @@ body {
 		Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
 	--br-md: 6px;
+	--clr-neutral-200: #1d1e22;
+	--clr-accent: rgb(72, 86, 209);
 }
 
 a {
@@ -15,4 +17,19 @@ a {
 
 * {
 	box-sizing: border-box;
+}
+
+.button {
+	padding: 0.5rem 1rem;
+	font-weight: 700;
+	border-radius: var(--br-md);
+	cursor: pointer;
+	border: 2px solid var(--clr-accent);
+	background-color: transparent;
+	transition: all 250ms ease;
+	&:hover,
+	&:active {
+		background-color: var(--clr-accent);
+		color: white;
+	}
 }

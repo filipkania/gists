@@ -2,6 +2,7 @@ import { useWrapper } from "@libs/WrapperContext";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import styles from "@styles/pages/Login.module.scss";
 
 import { motion, Variants } from "framer-motion";
 
@@ -36,7 +37,7 @@ const Login = () => {
 	}, [loading, wrapper?.token]);
 
 	return (
-		<>
+		<div className={styles.wrapper}>
 			<Head>
 				<title>Login - GistEditor</title>
 			</Head>
@@ -53,11 +54,14 @@ const Login = () => {
 					}
 				}}
 			>
+				<label htmlFor="loginInput">Paste your github token</label>
 				<input
 					type="password"
 					value={inputValue}
-					placeholder={"Paste your token here."}
+					placeholder={"Token"}
+					id="loginInput"
 					disabled={!!inputValue}
+					className={styles.input}
 					autoComplete="off"
 					onChange={(e) => {
 						const { value } = e.target;
@@ -71,7 +75,7 @@ const Login = () => {
 					}}
 				/>
 			</motion.div>
-		</>
+		</div>
 	);
 };
 

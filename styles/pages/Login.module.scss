@@ -1,15 +1,27 @@
 .input {
-    width: 16rem;
-    height: 2rem;
-    border-radius: var(--br-md);
+	padding: 0.5rem 1rem;
+	border-radius: var(--br-md);
+	border: 2px solid var(--clr-neutral-200);
+	&:focus,
+	&:active {
+		outline: none;
+		border-color: var(--clr-accent);
+	}
 }
 
-.container {
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.wrapper {
+	min-height: 100vh;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	> div {
+		display: flex;
+		flex-direction: column;
+		label {
+			margin-bottom: 1rem;
+			font-size: 1.125rem;
+		}
+	}
 }

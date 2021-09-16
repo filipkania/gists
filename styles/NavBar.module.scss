@@ -1,0 +1,27 @@
+.wrapper {
+	display: grid;
+	grid-template-columns: 150px auto;
+	gap: 2rem;
+	align-items: center;
+	.avatar {
+		border-radius: 50%;
+	}
+	.name {
+		font-size: 2.5rem;
+		font-weight: 700;
+		margin-right: auto;
+	}
+	.username {
+		font-size: 1.25rem;
+		margin-top: 0.5rem;
+		opacity: 0.8;
+	}
+	.data {
+		display: flex;
+		flex-direction: column;
+		> div {
+			display: flex;
+			align-items: center;
+		}
+	}
+}

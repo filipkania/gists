@@ -3,11 +3,12 @@ import useAPI from "@libs/useAPI";
 import { Gist } from "@typings/api/Gist";
 import Link from "next/link";
 import Head from "next/head";
+import styles from "@styles/pages/Index.module.scss";
 import NavBar from "@components/NavBar";
 import { useEffect, useMemo, useState } from "react";
 import { filterGistsByFileName, filterGistsByName } from "@libs/filteringFunctions";
 
-const GISTS_PER_PAGE = 1;
+const GISTS_PER_PAGE = 4;
 
 const Home = () => {
 	const { data, loading } = useAPI<Array<Gist>>(async (wrapper) => {
@@ -33,42 +34,62 @@ const Home = () => {
 	if (loading || !filteredData) return <div>Loading</div>;
 
 	return (
-		<>
+		<div className={styles.wrapper}>
 			<Head>
 				<title>Home - GistEditor</title>
 			</Head>
 
-			<div>
+			<div className={styles.main}>
 				<NavBar />
 
-				<div>
+				<div className={styles.gists}>
+					<label htmlFor="search-input">Search Gists</label>
 					<input
+						id="search-input"
+						className={styles.input}
 						value={filterString}
 						placeholder={"Filter gists by string"}
 						onChange={(e) => setFilterString(e.target.value)}
 					/>
 
-					{filteredData
-						.slice(GISTS_PER_PAGE * currentPage, GISTS_PER_PAGE * (currentPage + 1))
-						.map((gist, i) => (
-							<div key={i}>
-								<Link href={`/gist/${gist.id}`}>
-									{gist.description ||
-										gist.files[Object.keys(gist.files)[0]].filename}
+					<div className={styles.gists_container}>
+						{filteredData
+							.slice(GISTS_PER_PAGE * currentPage, GISTS_PER_PAGE * (currentPage + 1))
+							.map((gist, i) => (
+								<Link key={i} href={`/gist/${gist.id}`}>
+									<div className={styles.gist_wrapper}>
+										<p className={styles.gist_name}>
+											{gist.description || "Untitled"}
+										</p>
+										<p className={styles.gist_date}>
+											{new Date(gist.created_at).toLocaleDateString("pl-PL", {
+												weekday: "long",
+												year: "numeric",
+												month: "long",
+												day: "numeric",
+											})}
+										</p>
+									</div>
 								</Link>
-							</div>
-						))}
+							))}
+					</div>
 
 					<div>
 						{[...Array(Math.ceil(filteredData.length / GISTS_PER_PAGE))].map((_, i) => (
-							<button key={i} onClick={() => setCurrentPage(i)}>
+							<button
+								className={`${styles.pagination} ${
+									currentPage == i ? styles.active : ""
+								}`}
+								key={i}
+								onClick={() => setCurrentPage(i)}
+							>
 								{i + 1}
 							</button>
 						))}
 					</div>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 
