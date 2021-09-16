@@ -19,6 +19,14 @@
 	}
 }
 
+.file_entry + .file_entry {
+	margin-top: 2rem;
+}
+
+.name {
+	margin-bottom: -0.75rem;
+}
+
 .date {
 	margin-bottom: 3rem;
 }

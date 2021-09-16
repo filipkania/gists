@@ -4,7 +4,9 @@ import { Gist } from "@typings/api/Gist";
 import styles from "@styles/pages/Gist.id.module.scss";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import colors from "github-language-colors";
+// import colors from "github-language-colors";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { nord } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 const GistOverview = () => {
 	const router = useRouter();
@@ -54,20 +56,24 @@ const GistOverview = () => {
 					const file = data.files[key];
 
 					return (
-						<div key={i}>
-							<p>Nazwa: {file.filename}</p>
-							<p>Język: {file.language}</p>
-						</div>
+						<>
+							<div className={styles.file_entry} key={i}>
+								<p className={styles.name}>
+									Nazwa: <b>{file.filename}</b>
+								</p>
+								<p className={styles.lang}>
+									Język: <b>{file.language || "Not Specified"}</b>
+								</p>
+								<SyntaxHighlighter
+									style={nord}
+									language={file?.language?.toLowerCase() || ""}
+								>
+									{file.content}
+								</SyntaxHighlighter>
+							</div>
+						</>
 					);
 				})}
-
-			<code>
-				{Object.keys(colors).map((x: string, i) => (
-					<div key={i}>
-						{x}: {(colors as any)[x]}
-					</div>
-				))}
-			</code>
 		</div>
 	);
 };
