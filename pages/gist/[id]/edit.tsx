@@ -7,7 +7,7 @@ const EditGist = () => {
 		return wrapper.getSpecificGist(router.query.id as string);
 	});
 
-	if (loading) return <div>Loading...</div>;
+	if (loading) return null;
 
 	if (error?.response?.status === 404) return <div>Gist not found.</div>;
 

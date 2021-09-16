@@ -31,7 +31,7 @@ const Home = () => {
 		setCurrentPage(0);
 	}, [filterString]);
 
-	if (loading || !filteredData) return <div>Loading</div>;
+	if (loading || !filteredData) return null;
 
 	return (
 		<div className={styles.wrapper}>
@@ -53,25 +53,35 @@ const Home = () => {
 					/>
 
 					<div className={styles.gists_container}>
-						{filteredData
-							.slice(GISTS_PER_PAGE * currentPage, GISTS_PER_PAGE * (currentPage + 1))
-							.map((gist, i) => (
-								<Link key={i} href={`/gist/${gist.id}`}>
-									<div className={styles.gist_wrapper}>
-										<p className={styles.gist_name}>
-											{gist.description || Object.keys(gist.files)[0]}
-										</p>
-										<p className={styles.gist_date}>
-											{new Date(gist.created_at).toLocaleDateString("en-US", {
-												weekday: "long",
-												year: "numeric",
-												month: "long",
-												day: "numeric",
-											})}
-										</p>
-									</div>
-								</Link>
-							))}
+						{filteredData.length > 0 ? (
+							filteredData
+								.slice(
+									GISTS_PER_PAGE * currentPage,
+									GISTS_PER_PAGE * (currentPage + 1)
+								)
+								.map((gist, i) => (
+									<Link key={i} href={`/gist/${gist.id}`}>
+										<div className={styles.gist_wrapper}>
+											<p className={styles.gist_name}>
+												{gist.description || Object.keys(gist.files)[0]}
+											</p>
+											<p className={styles.gist_date}>
+												{new Date(gist.created_at).toLocaleDateString(
+													"en-US",
+													{
+														weekday: "long",
+														year: "numeric",
+														month: "long",
+														day: "numeric",
+													}
+												)}
+											</p>
+										</div>
+									</Link>
+								))
+						) : (
+							<span>Gists not found.</span>
+						)}
 					</div>
 
 					<div>

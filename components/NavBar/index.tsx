@@ -12,7 +12,7 @@ const NavBar = () => {
 		return wrapper.getUser();
 	});
 
-	if (loading || !data) return <div>Loading...</div>;
+	if (loading || !data) return null;
 
 	return (
 		<div className={styles.wrapper}>

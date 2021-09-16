@@ -26,7 +26,11 @@ class GistAPI {
 	};
 
 	public getGists = () => {
-		return this.client.get("/gists");
+		return this.client.get(`/gists`, {
+			params: {
+				t: new Date().toString(),
+			}, // prevents caching, ok?
+		});
 	};
 
 	public getSpecificGist = (id: string) => {
@@ -35,6 +39,10 @@ class GistAPI {
 
 	public getUser = () => {
 		return this.client.get("/user");
+	};
+
+	public deleteGist = (id: string) => {
+		return this.client.delete(`/gists/${id}`);
 	};
 }
 
