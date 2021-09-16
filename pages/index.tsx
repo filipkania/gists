@@ -59,10 +59,10 @@ const Home = () => {
 								<Link key={i} href={`/gist/${gist.id}`}>
 									<div className={styles.gist_wrapper}>
 										<p className={styles.gist_name}>
-											{gist.description || "Untitled"}
+											{gist.description || Object.keys(gist.files)[0]}
 										</p>
 										<p className={styles.gist_date}>
-											{new Date(gist.created_at).toLocaleDateString("pl-PL", {
+											{new Date(gist.created_at).toLocaleDateString("en-US", {
 												weekday: "long",
 												year: "numeric",
 												month: "long",

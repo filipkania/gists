@@ -26,10 +26,13 @@ a {
 	cursor: pointer;
 	border: 2px solid var(--clr-accent);
 	background-color: transparent;
-	transition: all 250ms ease;
+	transition: background-color 250ms ease, color 250ms ease;
 	&:hover,
 	&:active {
 		background-color: var(--clr-accent);
 		color: white;
+	}
+	& + .button {
+		margin-left: 1rem;
 	}
 }

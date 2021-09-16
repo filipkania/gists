@@ -1,6 +1,7 @@
 import ProtectedRoute from "@components/ProtectedRoute";
 import useAPI from "@libs/useAPI";
 import { Gist } from "@typings/api/Gist";
+import styles from "@styles/pages/Gist.id.module.scss";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import colors from "github-language-colors";
@@ -16,16 +17,36 @@ const GistOverview = () => {
 	if (error?.response?.status === 404) return <div>Gist not found.</div>;
 
 	return (
-		<>
+		<div className={styles.wrapper}>
 			<Head>
 				<title>{data?.description} - GistEditor</title>
 			</Head>
 
 			<div>
-				<button onClick={() => router.push("/")}>Go Back</button>
-				<button onClick={() => router.push(`/gist/${router.query.id}/edit`)}>Edit</button>
-				<div>{data?.description}</div>
-				<div>{data?.created_at}</div>
+				<button className="button" onClick={() => router.push("/")}>
+					Go Back
+				</button>
+				<button
+					className="button"
+					onClick={() => router.push(`/gist/${router.query.id}/edit`)}
+				>
+					Edit
+				</button>
+				<button className="button" onClick={() => alert("Deleted, maybe not")}>
+					Delete
+				</button>
+				<div className={styles.desc}>
+					<span>Description:</span> {data?.description || "No description provided"}
+				</div>
+				<div className={styles.date}>
+					<span>Created at:</span>{" "}
+					{new Date(data?.created_at || 0).toLocaleDateString("en-US", {
+						weekday: "long",
+						year: "numeric",
+						month: "long",
+						day: "numeric",
+					})}
+				</div>
 			</div>
 
 			{data &&
@@ -34,18 +55,20 @@ const GistOverview = () => {
 
 					return (
 						<div key={i}>
-							<span>Nazwa: {file.filename}</span>
-							<span>Język: {file.language}</span>
+							<p>Nazwa: {file.filename}</p>
+							<p>Język: {file.language}</p>
 						</div>
 					);
 				})}
 
-			{Object.keys(colors).map((x: string, i) => (
-				<div key={i}>
-					{x}: {(colors as any)[x]}
-				</div>
-			))}
-		</>
+			<code>
+				{Object.keys(colors).map((x: string, i) => (
+					<div key={i}>
+						{x}: {(colors as any)[x]}
+					</div>
+				))}
+			</code>
+		</div>
 	);
 };
 
