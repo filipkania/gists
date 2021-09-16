@@ -7,6 +7,7 @@ import Head from "next/head";
 
 import Nprogress from "nprogress";
 import "nprogress/nprogress.css";
+import { Toaster } from "react-hot-toast";
 
 const Gists = ({ Component, pageProps }: AppProps) => {
 	useEffect(() => {
@@ -24,6 +25,8 @@ const Gists = ({ Component, pageProps }: AppProps) => {
 			<Head>
 				<title>GistEditor</title>
 			</Head>
+
+			<Toaster />
 
 			<Component {...pageProps} />
 		</WrapperProvider>

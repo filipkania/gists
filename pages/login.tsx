@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 
-import style from "@styles/pages/Login.module.scss";
 import { motion, Variants } from "framer-motion";
 
 const variants: Variants = {
@@ -19,6 +18,9 @@ const variants: Variants = {
 	},
 	success: {
 		opacity: 0,
+		transition: {
+			delay: 0.5,
+		},
 	},
 };
 
@@ -40,7 +42,6 @@ const Login = () => {
 			</Head>
 
 			<motion.div
-				className={style.container}
 				variants={variants}
 				animate={verificationStatus}
 				onAnimationComplete={() => {
@@ -52,13 +53,12 @@ const Login = () => {
 					}
 				}}
 			>
-				<motion.input
+				<input
 					type="password"
 					value={inputValue}
 					placeholder={"Paste your token here."}
 					disabled={!!inputValue}
 					autoComplete="off"
-					className={style.input}
 					onChange={(e) => {
 						const { value } = e.target;
 

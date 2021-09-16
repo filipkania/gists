@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+
 class GistAPI {
 	public readonly token: string;
 	public readonly client: AxiosInstance;
@@ -30,6 +31,10 @@ class GistAPI {
 
 	public getSpecificGist = (id: string) => {
 		return this.client.get(`/gists/${id}`);
+	};
+
+	public getUser = () => {
+		return this.client.get("/user");
 	};
 }
 
