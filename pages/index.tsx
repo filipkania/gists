@@ -8,7 +8,7 @@ import NavBar from "@components/NavBar";
 import { useEffect, useMemo, useState } from "react";
 import { filterGistsByFileName, filterGistsByName } from "@libs/filteringFunctions";
 
-const GISTS_PER_PAGE = 4;
+const GISTS_PER_PAGE = 6;
 
 const Home = () => {
 	const { data, loading } = useAPI<Array<Gist>>(async (wrapper) => {
