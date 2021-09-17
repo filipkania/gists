@@ -5,6 +5,7 @@ import { CreatePayload, Gist } from "@typings/api/Gist";
 import { AxiosResponse } from "axios";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
+import styles from "@styles/pages/Gist.create.module.scss";
 import toast from "react-hot-toast";
 import Editor from "react-simple-code-editor";
 
@@ -12,12 +13,12 @@ import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
 
 const FILE_TEMPLATE: File = {
-	filename: "x",
-	content: "x",
+	filename: "newfile",
+	content: "You can edit file contents here :)",
 };
 
 const PROPERTIES_TEMPLATE: CreatePayload = {
-	description: "",
+	description: "This is gist's description",
 	public: true,
 	files: {},
 };
@@ -78,7 +79,7 @@ const CreateGist = () => {
 			});
 	};
 
-	const changeFileValue = (index: number, value: any) =>
+	const changeFileValue = (index: number, value: File) =>
 		setFiles((oldState) => {
 			const copy = [...oldState];
 			copy[index] = value;
@@ -88,79 +89,106 @@ const CreateGist = () => {
 	const removeFile = (i: number) => setFiles((files) => files.filter((_, index) => index !== i));
 
 	return (
-		<form onSubmit={onSubmit}>
-			<button type="button" onClick={() => router.push("/")}>
-				go back
-			</button>
-			<div>
-				<span>Nazwa gista</span>
-				<input
-					value={properties.description}
-					onChange={(e) =>
-						setProperties({
-							...properties,
-							description: e.currentTarget.value,
-						})
-					}
-				/>
+		<div className={styles.wrapper}>
+			<div className={styles.top}>
+				<h1 className={styles.title}>Create new Gist</h1>
+				<button className="button" type="button" onClick={() => router.push("/")}>
+					go back
+				</button>
 			</div>
-			<div>
-				<span>Publiczny</span>
-				<input
-					type="checkbox"
-					checked={properties.public}
-					onChange={(e) =>
-						setProperties({
-							...properties,
-							public: e.currentTarget.checked,
-						})
-					}
-				/>
-			</div>
-
-			<button
-				type="button"
-				onClick={() => {
-					setFiles([...files, FILE_TEMPLATE]);
-				}}
-			>
-				dodaj plik
-			</button>
-
-			{files.map((file, i) => (
-				<div key={i}>
+			<form onSubmit={onSubmit}>
+				<div style={{ display: "flex", flexDirection: "column" }}>
+					<h2 className={styles.subtitle}>General Info</h2>
+					<label htmlFor="gistName">Description</label>
 					<input
-						placeholder={"Filename"}
-						value={file.filename}
+						className={styles.underlined_input}
+						id="gistName"
+						value={properties.description}
 						onChange={(e) =>
-							changeFileValue(i, {
-								...file,
-								filename: e.currentTarget.value,
+							setProperties({
+								...properties,
+								description: e.currentTarget.value,
 							})
 						}
 					/>
-
-					<Editor
-						value={file.content}
-						onValueChange={(v) => {
-							changeFileValue(i, {
-								...file,
-								content: v,
-							});
-						}}
-						highlight={(x) => hljs.highlightAuto(x).value}
-					/>
-
-					{files.length > 1 && (
-						<button type="button" onClick={() => removeFile(i)}>
-							x
-						</button>
-					)}
 				</div>
-			))}
+				<div>
+					<label className={styles.public} htmlFor="isPublic">
+						Make Public?
+					</label>
+					<input
+						id="isPublic"
+						type="checkbox"
+						checked={properties.public}
+						onChange={(e) =>
+							setProperties({
+								...properties,
+								public: e.currentTarget.checked,
+							})
+						}
+					/>
+				</div>
 
-			<input disabled={processing} type="submit" />
-		</form>
+				<div style={{ marginTop: "3rem" }} />
+				<h2 className={styles.subtitle}>Files</h2>
+
+				{files.map((file, i) => (
+					<div className={styles.file_entry} key={i}>
+						<div className={styles.file_navbar}>
+							<h2 style={{ marginTop: 0 }}>File #{i + 1}</h2>
+
+							{files.length > 1 && (
+								<button
+									style={{ marginTop: "1rem" }}
+									className="button button--red button--small"
+									type="button"
+									onClick={() => removeFile(i)}
+								>
+									Remove
+								</button>
+							)}
+						</div>
+						<label htmlFor={`filename_${i}`}>File Name</label>
+						<input
+							id={`filename_${i}`}
+							placeholder={"Filename"}
+							className={styles.underlined_input}
+							value={file.filename}
+							onChange={(e) =>
+								changeFileValue(i, {
+									...file,
+									filename: e.currentTarget.value,
+								})
+							}
+						/>
+
+						<p className={styles.label}>Content</p>
+						<Editor
+							value={file.content}
+							onValueChange={(v) => {
+								changeFileValue(i, {
+									...file,
+									content: v,
+								});
+							}}
+							highlight={(x) => hljs.highlightAuto(x).value}
+						/>
+					</div>
+				))}
+
+				<button
+					type="button"
+					className="button"
+					onClick={() => {
+						setFiles([...files, FILE_TEMPLATE]);
+					}}
+				>
+					Add File
+				</button>
+
+				<input className="button button--primary" disabled={processing} type="submit" />
+			</form>
+		</div>
 	);
 };
 
