@@ -24,6 +24,7 @@ const EditGist = () => {
 
 	const [properties, setProperties] = useState<CreatePayload | null>(null);
 	const [files, setFiles] = useState<Array<File>>([]);
+	const [filesToDelete, setFilesToDelete] = useState<Array<string>>([]);
 	const [processing, setProcessing] = useState(false);
 
 	const { error, loading } = useAPI<Gist>(async (wrapper) => {
@@ -60,6 +61,12 @@ const EditGist = () => {
 
 				names.push(file.filename);
 				payload.files[file.filename] = file;
+			});
+
+			filesToDelete.forEach((key) => {
+				payload.files[key] = {
+					content: "",
+				};
 			});
 		}
 
@@ -149,7 +156,10 @@ const EditGist = () => {
 									style={{ marginTop: "1rem" }}
 									className="button button--red button--small"
 									type="button"
-									onClick={() => removeFile(i)}
+									onClick={() => {
+										setFilesToDelete([...filesToDelete, files[i].filename]);
+										removeFile(i);
+									}}
 								>
 									Remove
 								</button>
