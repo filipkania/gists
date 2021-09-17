@@ -5,6 +5,7 @@ import Image from "next/image";
 import styles from "@styles/NavBar.module.scss";
 import { useWrapper } from "@libs/WrapperContext";
 import toast from "react-hot-toast";
+import router from "next/router";
 
 const NavBar = () => {
 	const { clearSession } = useWrapper();
@@ -27,6 +28,14 @@ const NavBar = () => {
 			<div className={styles.data}>
 				<div>
 					<span className={styles.name}>{data.name}</span>
+					<button
+						className="button"
+						onClick={() => {
+							router.push("/gist/create");
+						}}
+					>
+						Create new Gist
+					</button>
 					<button
 						className="button"
 						onClick={() => {

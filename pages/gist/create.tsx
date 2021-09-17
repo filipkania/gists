@@ -13,12 +13,12 @@ import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
 
 const FILE_TEMPLATE: File = {
-	filename: "newfile",
+	filename: "",
 	content: "You can edit file contents here :)",
 };
 
 const PROPERTIES_TEMPLATE: CreatePayload = {
-	description: "This is gist's description",
+	description: "",
 	public: true,
 	files: {},
 };
@@ -103,6 +103,7 @@ const CreateGist = () => {
 					<input
 						className={styles.underlined_input}
 						id="gistName"
+						placeholder={"Description"}
 						value={properties.description}
 						onChange={(e) =>
 							setProperties({

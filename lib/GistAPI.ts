@@ -49,6 +49,10 @@ class GistAPI {
 	public createGist = (payload: CreatePayload) => {
 		return this.client.post("/gists", payload);
 	};
+
+	public updateGist = (id: string, payload: CreatePayload) => {
+		return this.client.patch(`/gists/${id}`, payload);
+	};
 }
 
 export default GistAPI;
