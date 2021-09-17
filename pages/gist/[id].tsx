@@ -47,7 +47,7 @@ const GistOverview = () => {
 					Edit
 				</button>
 				<button
-					className="button"
+					className="button button--red"
 					disabled={processing}
 					onClick={() => {
 						const result = confirm(

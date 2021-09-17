@@ -93,7 +93,7 @@ const CreateGist = () => {
 			<div className={styles.top}>
 				<h1 className={styles.title}>Create new Gist</h1>
 				<button className="button" type="button" onClick={() => router.push("/")}>
-					go back
+					Go Back
 				</button>
 			</div>
 			<form onSubmit={onSubmit}>
@@ -186,7 +186,9 @@ const CreateGist = () => {
 					Add File
 				</button>
 
-				<input className="button button--primary" disabled={processing} type="submit" />
+				<button className="button button--primary" disabled={processing} type="submit">
+					Submit Query
+				</button>
 			</form>
 		</div>
 	);

@@ -38,8 +38,28 @@ a {
 		color: white;
 	}
 	&--primary {
-		background-color: var(--clr);
+		background-color: transparent;
+		position: relative;
+		border: none;
 		color: white;
+		// yes this is CSS way of creating "darker colors" LMAO PLS DON'T JUDGE ME
+		&::before {
+			content: "";
+			position: absolute;
+			border-radius: inherit;
+			z-index: -1;
+			top: -2px;
+			left: -2px;
+			width: calc(100% + 4px);
+			height: calc(100% + 4px);
+			background-color: var(--clr);
+		}
+		&:hover {
+			background-color: transparent !important;
+		}
+		&:hover::before {
+			filter: brightness(80%);
+		}
 	}
 	&--small {
 		font-size: 0.8rem;
