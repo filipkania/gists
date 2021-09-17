@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { WrapperCtxType } from "@typings/lib/WrapperContext";
+import { WrapperCtxType } from "@typings/WrapperContext";
 import GistAPI from "./GistAPI";
 import { LOCALSTORAGE_KEY } from "./WrapperContext";
 

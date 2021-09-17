@@ -4,7 +4,7 @@ import { Gist } from "@typings/api/Gist";
 
 const EditGist = () => {
 	const { data, error, loading } = useAPI<Gist>((wrapper, router) => {
-		return wrapper.getSpecificGist(router.query.id as string);
+		return wrapper.getGist(router.query.id as string);
 	});
 
 	if (loading) return null;

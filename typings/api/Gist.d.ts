@@ -1,3 +1,4 @@
+import { File } from "@typings/CreateGist";
 import { User } from "./User";
 
 export interface Gist {
@@ -5,15 +6,7 @@ export interface Gist {
 	created_at: string;
 	description: string;
 	files: {
-		[key: string]: {
-			content: string;
-			filename: string;
-			language: string;
-			raw_url: string;
-			size: number;
-			truncated: boolean;
-			type: string;
-		};
+		[key: string]: File;
 	};
 	forks: {
 		created_at: string;
@@ -43,4 +36,12 @@ export interface Gist {
 	truncated: boolean;
 	updated_at: string;
 	url: string;
+}
+
+export interface CreatePayload {
+	description: string;
+	public: boolean;
+	files: {
+		[key: string]: File;
+	};
 }

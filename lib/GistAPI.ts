@@ -1,3 +1,4 @@
+import { CreatePayload } from "@typings/api/Gist";
 import axios, { AxiosInstance } from "axios";
 
 class GistAPI {
@@ -33,16 +34,20 @@ class GistAPI {
 		});
 	};
 
-	public getSpecificGist = (id: string) => {
-		return this.client.get(`/gists/${id}`);
-	};
-
 	public getUser = () => {
 		return this.client.get("/user");
 	};
 
+	public getGist = (id: string) => {
+		return this.client.get(`/gists/${id}`);
+	};
+
 	public deleteGist = (id: string) => {
 		return this.client.delete(`/gists/${id}`);
+	};
+
+	public createGist = (payload: CreatePayload) => {
+		return this.client.post("/gists", payload);
 	};
 }
 

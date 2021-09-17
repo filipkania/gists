@@ -8,14 +8,16 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nord } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { useWrapper } from "@libs/WrapperContext";
 import toast from "react-hot-toast";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const GistOverview = () => {
 	const router = useRouter();
 	const { wrapper } = useWrapper();
 	const { data, error, loading } = useAPI<Gist>((wrapper, router) => {
-		return wrapper.getSpecificGist(router.query.id as string);
+		return wrapper.getGist(router.query.id as string);
 	});
+
+	const [processing, setProcessing] = useState(false);
 
 	useEffect(() => {
 		if (error?.response?.status === 404) {
@@ -46,11 +48,14 @@ const GistOverview = () => {
 				</button>
 				<button
 					className="button"
+					disabled={processing}
 					onClick={() => {
 						const result = confirm(
 							"You are about to delete your Gist. Are you sure about this?"
 						);
 						if (!result) return;
+
+						setProcessing(true);
 
 						const toastId = toast.loading("Deleting Gist...");
 						wrapper
@@ -62,17 +67,21 @@ const GistOverview = () => {
 									id: toastId,
 								});
 							})
-							.catch(() =>
+							.catch(() => {
 								toast.error("Couldn't delete selected Gist.", {
 									id: toastId,
-								})
-							);
+								});
+
+								setProcessing(false);
+							});
 					}}
 				>
 					Delete
 				</button>
 				<div className={styles.desc}>
 					<span>Description:</span> {data?.description || "No description provided"}
+					<br />
+					<span>Public:</span> {data.public.toString()}
 				</div>
 				<div className={styles.date}>
 					<span>Created at:</span>{" "}

@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { WrapperCtxType } from "typings/lib/WrapperContext";
+import { WrapperCtxType } from "@typings/WrapperContext";
 
 export const LOCALSTORAGE_KEY = "gists::token";
 
