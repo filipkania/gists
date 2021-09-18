@@ -53,6 +53,10 @@ class GistAPI {
 	public updateGist = (id: string, payload: CreatePayload) => {
 		return this.client.patch(`/gists/${id}`, payload);
 	};
+
+	public forkGist = (id: string) => {
+		return this.client.post(`/gists/${id}/forks`);
+	};
 }
 
 export default GistAPI;

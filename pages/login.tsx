@@ -54,7 +54,6 @@ const Login = () => {
 					}
 				}}
 			>
-				<label htmlFor="loginInput">Paste your github token</label>
 				<input
 					type="password"
 					value={inputValue}
